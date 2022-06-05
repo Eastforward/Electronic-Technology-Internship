@@ -13,7 +13,7 @@ import time
 import math
 import asyncio
 
-makerobo_DO = 18  # 雨滴传感器数字管脚
+makerobo_DO = 25  # 雨滴传感器数字管脚
 
 GPIO.setmode(GPIO.BCM)  # 采用BCM管脚给GPIO口
 

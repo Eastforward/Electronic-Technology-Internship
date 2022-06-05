@@ -2,8 +2,14 @@ import time
 
 import RPi.GPIO as GPIO
 import asyncio
+
+import GlobalVariable
+
 setting_button = 18  # 选定温度阈值的开关,BCM编码
-confirm_button = 27
+down_button = 27
+up_button = 24
+
+buttons = [0, 0, 0]
 
 
 # 初始化GPIO口
@@ -45,7 +51,7 @@ def setting_button_detect(btn):
     makerobo_Print(GPIO.input(btn), btn)  # 打印出GPIO的状态
 
 
-def confirm_button_detect(btn):
+def down_button_detect(btn):
     double_colorLED(GPIO.input(btn), btn)  # 调用双色LED驱动函数
     makerobo_Print(GPIO.input(btn), btn)  # 打印出GPIO的状态
 
@@ -65,13 +71,20 @@ def makerobo_destroy():
 
 def setting():
     print("setting")
+    GlobalVariable.set_value('flag_show_humiture', not GlobalVariable.get_value('flag_show_humiture'))
+    print('##############flag_show_humiture',GlobalVariable.get_value('flag_show_humiture'))
+    GlobalVariable.set_value('flag_show_setting', not GlobalVariable.get_value('flag_show_setting'))
+    print('##############flag_show_setting', GlobalVariable.get_value('flag_show_setting'))
 
 
-def confirm():
-    print("confirm")
+def down():
+    print("down")
+    GlobalVariable.set_value('temp_thres', GlobalVariable.get_value('temp_thres') - 1)
 
 
-buttons = [0, 0, 0, 0]
+def up():
+    print('up')
+    GlobalVariable.set_value('temp_thres', GlobalVariable.get_value('temp_thres') + 1)
 
 
 def button_input(sleep_count, sleeptime_for_gt):
@@ -80,39 +93,46 @@ def button_input(sleep_count, sleeptime_for_gt):
         # 有优先级之分
         if GPIO.input(setting_button) > 0:
             buttons[0] = 1
-        elif GPIO.input(confirm_button) > 0:
+        elif GPIO.input(down_button) > 0:
             buttons[1] = 1
+        elif GPIO.input(up_button) > 0:
+            buttons[2] = 1
         time.sleep(sleeptime_for_gt)
 
 
-def detect_input():
+async def detect_input():
     global buttons
     GPIO.setup(setting_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 设置setting_button管脚为输入模式，上拉至高电平(3.3V)
-    GPIO.setup(confirm_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 设置setting_button管脚为输入模式，上拉至高电平(3.3V)
+    GPIO.setup(down_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 设置setting_button管脚为输入模式，上拉至高电平(3.3V)
+    GPIO.setup(up_button, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # 设置setting_button管脚为输入模式，上拉至高电平(3.3V)
     # 中断函数，当轻触按键按下时，调用detect函数
 
     # GPIO.add_event_detect(setting_button, GPIO.BOTH, callback=setting_button_detect, bouncetime=200)
-    # GPIO.add_event_detect(confirm_button, GPIO.BOTH, callback=confirm_button_detect, bouncetime=200)
+    # GPIO.add_event_detect(down_button, GPIO.BOTH, callback=down_button_detect, bouncetime=200)
     # 消抖处理，参考侯新源同学的想法，将每一秒分成20帧
     sleep_count = 20
-    sleeptime = 0.5 # 0.5s一个操作
+    sleeptime = 0.5  # 0.5s一个操作
     sleepfactor = 1
 
     sleeptime_for_gt = float(sleeptime / sleep_count * sleepfactor)  # 1gt时间
 
     while True:
-        buttons = [0, 0, 0, 0]  # 每次循环都要刷新一遍
+        # await
+        buttons = [0, 0, 0]  # 每次循环都要刷新一遍
         button_input(sleep_count, sleeptime_for_gt)
         if buttons[0] == 1:
             setting()
         elif buttons[1] == 1:
-            confirm()
+            down()
+        elif buttons[2] == 1:
+            up()
+        await asyncio.sleep(0.2)
     # while True:
     #
-    #     print(GPIO.input(setting_button), GPIO.input(confirm_button))
+    #     print(GPIO.input(setting_button), GPIO.input(down_button))
     #     if GPIO.input(setting_button) > 0:
     #         print(f"setting button")
-    #     if GPIO.input(confirm_button) > 0:
+    #     if GPIO.input(down_button) > 0:
     #         print(f"up buttons")
     #     time.sleep(0.1)
 

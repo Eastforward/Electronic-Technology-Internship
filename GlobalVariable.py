@@ -45,7 +45,7 @@
 def _init():  # 初始化
     global _global_dict
     _global_dict = {'humidity': 0, 'temperature': 0, 'is_raining': False, 'flag_show_humiture': 1,
-                    'flag_show_setting': 0,'temp_thres':30}
+                    'flag_show_setting': 0, 'temp_thres': 30, 'addition': ""}
 
 
 def set_value(key, value):
