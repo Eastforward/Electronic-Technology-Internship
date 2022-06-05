@@ -27,14 +27,16 @@ def makerobo_setup():
 # 打印出雨滴传感器提示信息
 def makerobo_Print(x):
     if x == 1:  # 没有雨滴
-        GlobalVariable.set_is_raining(False)
+        GlobalVariable.set_value('is_raining', False)
+        # GlobalVariable.set_is_raining(False)
         print('')
         print('   ************************')
         print('   * makerobo Not raining *')
         print('   ************************')
         print('')
     if x == 0:  # 有雨滴
-        GlobalVariable.set_is_raining(True)
+        GlobalVariable.set_value('is_raining', True)
+        # GlobalVariable.set_is_raining(True)
         print('')
         print('   **********************')
         print('   * makerobo Raining!! *')

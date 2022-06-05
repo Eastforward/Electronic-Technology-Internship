@@ -65,7 +65,8 @@ def makerobo_destroy():
 async def get_LED_detect():
     while True:
         # print(GlobalVariable.get_temperature())
-        if GlobalVariable.get_temperature() >= 29 or GlobalVariable.get_is_raining() is True:
+        if GlobalVariable.get_value('temperature') >= 29 or GlobalVariable.get_value('is_raining') is True:
+            # if GlobalVariable.get_temperature() >= 29 or GlobalVariable.get_is_raining() is True:
             print("Way too hot or raining now!")
             makerobo_set_Color(0x00FF)
             await asyncio.sleep(0.5)  # 延时500ms

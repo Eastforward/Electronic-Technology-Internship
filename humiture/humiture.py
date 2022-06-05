@@ -35,9 +35,11 @@ async def get_humiture():
         # print('get_humiture')
         await asyncio.sleep(0.1)
         humidity, temperature = DHT.read_retry(Sensor, humiture)
-        GlobalVariable.set_humidity(humidity)
-        GlobalVariable.set_temperature(temperature)
-        print(GlobalVariable.get_humidity(), GlobalVariable.get_temperature())
+        # GlobalVariable.set_humidity(humidity)
+        # GlobalVariable.set_temperature(temperature)
+        GlobalVariable.set_value('humidity', humidity)
+        GlobalVariable.set_value('temperature', temperature)
+        print(GlobalVariable.get_value('humidity'), GlobalVariable.get_value('temperature'))
 
 
 def destroy():

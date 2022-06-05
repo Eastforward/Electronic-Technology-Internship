@@ -29,6 +29,7 @@ async def main():
 
 
 if __name__ == '__main__':
+    GlobalVariable._init()
     humiture.setup()
     displayer.set_text(0, 0, 'Hello world!')
     time.sleep(1)
