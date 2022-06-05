@@ -5,9 +5,6 @@ import GlobalVariable
 import displayer.LCD1602 as LCD1602
 import time
 
-flag_show_humiture = 1
-flag_show_setting = 0
-
 
 def setup():
     LCD1602.init(0x27, 1)  # init(slave address, background light)
@@ -25,8 +22,7 @@ def set_text(cord1_x, cord1_y, text1, cord2_x=0, cord2_y=1, text2=''):
 async def show_humiture():
     now_humi = 0
     now_temp = 0
-    global flag_show_humiture, flag_show_setting
-    while flag_show_humiture:
+    while GlobalVariable.get_value('flag_show_humiture'):
         # print('show_humiture')
         try:
             await asyncio.sleep(1)
@@ -41,8 +37,14 @@ async def show_humiture():
 
 
 async def show_setting():
-    global flag_show_humiture, flag_show_setting
-    pass
+    while GlobalVariable.get_value('flag_show_setting'):
+        try:
+            await asyncio.sleep(1)
+            set_text(0, 0, 'Temp thres', 0, 1,
+                     f"{GlobalVariable.get_value('temp_thres')} Cels")
+        except KeyboardInterrupt:
+            destroy()
+
     # while flag_show_setting:
     #     try:
     #         await asyncio.sleep(1)
@@ -66,10 +68,17 @@ def destroy():
     pass
 
 
+def test_interface():
+    set_text(0, 0, 'Temp thres', 0, 1,
+             f"{GlobalVariable.get_value('temp_thres')} Cels")
+
+
 if __name__ == "__main__":
-    try:
-        setup()
-        while True:
-            pass
-    except KeyboardInterrupt:
-        destroy()
+    GlobalVariable._init()
+    test_interface()
+    # try:
+    #     setup()
+    #     while True:
+    #         pass
+    # except KeyboardInterrupt:
+    #     destroy()

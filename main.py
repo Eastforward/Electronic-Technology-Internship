@@ -25,7 +25,8 @@ async def main():
     task2 = asyncio.create_task(displayer.show_humiture())
     task3 = asyncio.create_task(RainDetect.get_rain_detect())
     task4 = asyncio.create_task(LED.get_LED_detect())
-    await asyncio.gather(task1, task2, task3, task4)
+    task5 = asyncio.create_task(displayer.show_setting())
+    await asyncio.gather(task1, task2, task3, task4, task5)
 
 
 if __name__ == '__main__':
