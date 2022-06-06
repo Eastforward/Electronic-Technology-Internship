@@ -22,3 +22,6 @@
 7. 本程序最大优点是使用asyncio库进行多线程编程，保证了所有部件都是同时运行而不会互相阻塞。并且构建了类似于总线一般的共享变量池，方便各部件之间进行数据交换。
 
 本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
+
+
+Arthur:JZY
