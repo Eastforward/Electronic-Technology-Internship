@@ -20,3 +20,5 @@
 5. 如果温度达到阈值之上，则LED会闪红灯提醒，并且会在显示屏右下角加上一个HOT的字段。![img_3.png](img_3.png)![img_4.png](img_4.png)
 6. 同样地，如果下雨的话，则也同样会闪红灯并且在屏幕右下角显示RAIN字段。![img_5.png](img_5.png)
 7. 本程序最大优点是使用asyncio库进行多线程编程，保证了所有部件都是同时运行而不会互相阻塞。并且构建了类似于总线一般的共享变量池，方便各部件之间进行数据交换。
+
+本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
