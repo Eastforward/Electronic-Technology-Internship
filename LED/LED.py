@@ -70,6 +70,7 @@ async def get_LED_detect():
             # if GlobalVariable.get_temperature() >= 29 or GlobalVariable.get_is_raining() is True:
             if GlobalVariable.get_value('temperature') >= GlobalVariable.get_value('temp_thres'):
                 print("Too hot!")
+                GlobalVariable.set_value('is_temp_too_hot', True)
                 GlobalVariable.set_value("addition", "HOT!")
             if GlobalVariable.get_value('is_raining') is True:  # 下雨的优先级更高
                 print("Raining!")
@@ -77,6 +78,7 @@ async def get_LED_detect():
             makerobo_set_Color(0x00FF)
             await asyncio.sleep(0.5)  # 延时500ms
             continue
+        GlobalVariable.set_value('is_temp_too_hot', False)
         makerobo_set_Color(0xFF00)
         GlobalVariable.set_value("addition", "")
         await asyncio.sleep(0.5)  # 延时500ms

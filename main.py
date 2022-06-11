@@ -19,7 +19,7 @@ import cv2
 import MyThread
 import GlobalVariable
 import asyncio
-
+from cloud import run
 
 async def main():
     task1 = asyncio.create_task(humiture.get_humiture())
@@ -27,7 +27,8 @@ async def main():
     task3 = asyncio.create_task(RainDetect.get_rain_detect())
     task4 = asyncio.create_task(LED.get_LED_detect())
     task5 = asyncio.create_task(controller.detect_input())
-    await asyncio.gather(task1, task2, task3, task4, task5)
+    task_cloud = asyncio.create_task(run.cloud_update())
+    await asyncio.gather(task1, task2, task3, task4, task5, task_cloud)
 
 
 if __name__ == '__main__':

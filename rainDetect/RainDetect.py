@@ -62,7 +62,8 @@ async def get_rain_detect():
     makerobo_status = 1  # 雨滴传感器状态
     while True:
         # print('get_rain_detect')
-        print(ADC.read(0))  # 打印出AIN0的模拟量数值
+        GlobalVariable.set_value('rainy_factor', ADC.read(0))
+        print(GlobalVariable.get_value('rainy_factor'))  # 打印出AIN0的模拟量数值
         makerobo_tmp = GPIO.input(makerobo_DO)  # 读取数字IO口电平，读取数字雨滴传感器DO端口
         if makerobo_tmp != makerobo_status:  # 状态发生改变
             makerobo_Print(makerobo_tmp)  # 打印出雨滴传感器检测信息
