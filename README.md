@@ -21,7 +21,14 @@
 6. 同样地，如果下雨的话，则也同样会闪红灯并且在屏幕右下角显示RAIN字段。![img_5.png](img_5.png)
 7. 本程序最大优点是使用asyncio库进行多线程编程，保证了所有部件都是同时运行而不会互相阻塞。并且构建了类似于总线一般的共享变量池，方便各部件之间进行数据交换。
 
-本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
 
+## 第二次大作业补充
+第二次作业是基于智能农业管理系统的迭代更新，增加了上云等功能。
+1. 增加特殊状态，如是否正在下雨，是否温度过热，摄像头功能是否正常，摄像头是否检测到人![img_6.png](img_6.png)
+2. 将所有状态同步到阿里云平台
+3. 增加摄像头功能，其中摄像头用于检测是否存在人员，一般用于判断是否有非法人员闯入农业园区。![img_7.png](img_7.png)
 
 Arthur:JZY
+
+
+本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
