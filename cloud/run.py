@@ -83,7 +83,8 @@ async def cloud_update():
             'temp_thres': GlobalVariable.get_value('temp_thres'),
             'is_temp_too_hot': int(GlobalVariable.get_value('is_temp_too_hot')),
             'is_raining': int(GlobalVariable.get_value('is_raining')),
-            'is_video_work':int(GlobalVariable.get_value('is_video_work'))
+            'is_video_work': int(GlobalVariable.get_value('is_video_work')),
+            'is_people_detected': int(GlobalVariable.get_value('is_people_detected'))
 
         }
         JsonUpdataMsn = aliLink.Alink(updateMsn)
