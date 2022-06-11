@@ -28,7 +28,7 @@
 2. 将所有状态同步到阿里云平台
 3. 增加摄像头功能，其中摄像头用于检测是否存在人员，一般用于判断是否有非法人员闯入农业园区。![img_7.png](img_7.png)
 
-Arthur:JZY
+Arthur:JZY，Group-mate:LB
 
 
 本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
