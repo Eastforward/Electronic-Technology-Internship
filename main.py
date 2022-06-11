@@ -14,6 +14,7 @@ import displayer.display as displayer
 import rainDetect.RainDetect as RainDetect
 import controller.controller as controller
 import LED.LED as LED
+import OpenCV.capture as capture
 from threading import Thread
 import cv2
 import MyThread
@@ -27,8 +28,9 @@ async def main():
     task3 = asyncio.create_task(RainDetect.get_rain_detect())
     task4 = asyncio.create_task(LED.get_LED_detect())
     task5 = asyncio.create_task(controller.detect_input())
+    task6 = asyncio.create_task(capture.capture())
     task_cloud = asyncio.create_task(run.cloud_update())
-    await asyncio.gather(task1, task2, task3, task4, task5, task_cloud)
+    await asyncio.gather(task1, task2, task3, task4, task5, task_cloud, task6)
 
 
 if __name__ == '__main__':
