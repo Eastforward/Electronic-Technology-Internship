@@ -34,4 +34,8 @@
 Arthur:JZY，Group-mate:LB
 
 
+补充代码结构粗略图
+
+![img_8.png](img_8.png)
+
 本作业Github仓库：https://github.com/Eastforward/Electronic-Technology-Internship
